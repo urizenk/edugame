@@ -66,9 +66,9 @@ const VoiceRecorder = ({ onTranscript }: VoiceRecorderProps) => {
         type="button"
         onClick={handleToggle}
         disabled={isProcessing}
-        className={`flex items-center justify-between rounded-3xl px-6 py-5 text-white transition-all duration-300 focus:outline-none focus-visible:ring-4 disabled:cursor-not-allowed ${isRecording
-          ? "bg-playful-coral-500 hover:bg-playful-coral-400 shadow-xl shadow-playful-coral-300/40 scale-105"
-          : "bg-playful-peach-500 hover:bg-playful-peach-400 shadow-lg shadow-playful-peach-300/40 hover:scale-105"
+        className={`flex items-center justify-between rounded-3xl px-8 py-6 text-white transition-all duration-300 focus:outline-none focus-visible:ring-4 disabled:cursor-not-allowed ${isRecording
+          ? "bg-red-500 hover:bg-red-400 shadow-xl shadow-red-300/40 scale-105 animate-pulse"
+          : "bg-blue-500 hover:bg-blue-400 shadow-lg shadow-blue-300/40 hover:scale-105"
           }`}
       >
         <div className="flex items-center gap-4">
@@ -85,7 +85,24 @@ const VoiceRecorder = ({ onTranscript }: VoiceRecorderProps) => {
         <InlineAlert tone="info" title="录音中" message="完成后再次点击按钮即可提交识别。请保持环境安静。" />
       ) : null}
 
-      {error ? <InlineAlert tone="danger" title="录音失败" message={error} /> : null}
+      {error ? (
+        <div className="space-y-3">
+          <InlineAlert tone="danger" title="录音失败" message={error} />
+          {error.includes('HTTPS') || error.includes('不支持') ? (
+            <InlineAlert 
+              tone="info" 
+              title="解决方案" 
+              message="• 使用 https:// 访问网站 • 或在本地环境(localhost)测试 • 或使用现代浏览器(Chrome/Firefox/Safari)" 
+            />
+          ) : error.includes('权限') ? (
+            <InlineAlert 
+              tone="info" 
+              title="解决方案" 
+              message="• 点击浏览器地址栏的麦克风图标 • 选择"允许"访问麦克风 • 刷新页面重试" 
+            />
+          ) : null}
+        </div>
+      ) : null}
 
       {showToast && (
         <Toast

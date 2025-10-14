@@ -31,6 +31,49 @@ const getAudioContext = () => {
   return new AudioContextCtor();
 };
 
+// 检查浏览器是否支持getUserMedia
+const checkMediaSupport = () => {
+  // 检查现代API
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    return { supported: true, modern: true };
+  }
+  
+  // 检查旧版API
+  const getUserMedia = (navigator as any).getUserMedia || 
+    (navigator as any).webkitGetUserMedia || 
+    (navigator as any).mozGetUserMedia || 
+    (navigator as any).msGetUserMedia;
+  
+  if (getUserMedia) {
+    return { supported: true, modern: false };
+  }
+  
+  return { supported: false, modern: false };
+};
+
+// 获取用户媒体流
+const getUserMediaStream = async (constraints: MediaStreamConstraints): Promise<MediaStream> => {
+  const support = checkMediaSupport();
+  
+  if (!support.supported) {
+    throw new Error('此浏览器不支持语音录制功能。请使用现代浏览器或启用HTTPS访问。');
+  }
+  
+  if (support.modern) {
+    return await navigator.mediaDevices.getUserMedia(constraints);
+  }
+  
+  // 使用旧版API
+  const getUserMedia = (navigator as any).getUserMedia || 
+    (navigator as any).webkitGetUserMedia || 
+    (navigator as any).mozGetUserMedia || 
+    (navigator as any).msGetUserMedia;
+  
+  return new Promise<MediaStream>((resolve, reject) => {
+    getUserMedia.call(navigator, constraints, resolve, reject);
+  });
+};
+
 const floatTo16BitPCM = (input: Float32Array) => {
   const output = new DataView(new ArrayBuffer(input.length * 2));
   let offset = 0;
@@ -174,7 +217,8 @@ export const useVoiceRecorder = (): UseVoiceRecorder => {
     setError(null);
 
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
+      // 获取媒体流
+      const stream = await getUserMediaStream({
         audio: {
           echoCancellation: true,
           noiseSuppression: true,
@@ -212,7 +256,23 @@ export const useVoiceRecorder = (): UseVoiceRecorder => {
       setStatus('recording');
     } catch (err) {
       console.error('Failed to start recording', err);
-      setError(err instanceof Error ? err.message : 'Unable to access microphone.');
+      let errorMessage = '无法访问麦克风。';
+      
+      if (err instanceof Error) {
+        if (err.message.includes('Permission denied') || err.name === 'NotAllowedError') {
+          errorMessage = '麦克风权限被拒绝，请允许网站访问麦克风。';
+        } else if (err.message.includes('not found') || err.name === 'NotFoundError') {
+          errorMessage = '未找到麦克风设备，请检查设备连接。';
+        } else if (err.message.includes('HTTPS') || err.message.includes('不支持')) {
+          errorMessage = err.message;
+        } else if (err.message.includes('secure')) {
+          errorMessage = '语音录制需要HTTPS环境。请使用https://访问或在本地环境测试。';
+        } else {
+          errorMessage = `录音失败: ${err.message}`;
+        }
+      }
+      
+      setError(errorMessage);
       cleanup();
       setStatus('error');
     }
