@@ -98,7 +98,7 @@ const VoiceRecorder = ({ onTranscript }: VoiceRecorderProps) => {
             <InlineAlert 
               tone="info" 
               title="解决方案" 
-              message="• 点击浏览器地址栏的麦克风图标 • 选择"允许"访问麦克风 • 刷新页面重试" 
+              message="• 点击浏览器地址栏的麦克风图标 • 选择'允许'访问麦克风 • 刷新页面重试" 
             />
           ) : null}
         </div>
