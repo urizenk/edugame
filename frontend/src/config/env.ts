@@ -11,7 +11,7 @@ const getApiBaseUrl = () => {
   if (import.meta.env.VITE_API_BASE_URL) {
     return withTrailingSlash(import.meta.env.VITE_API_BASE_URL);
   }
-  
+
   // 生产环境自动检测
   if (import.meta.env.PROD) {
     // 如果是 Zeabur 部署，尝试使用相对路径的后端服务
@@ -23,7 +23,7 @@ const getApiBaseUrl = () => {
     // 其他生产环境，使用当前域名的 4001 端口
     return `${window.location.protocol}//${window.location.hostname}:4001`;
   }
-  
+
   // 开发环境默认
   return 'http://localhost:4001';
 };
