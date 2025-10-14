@@ -89,16 +89,16 @@ const VoiceRecorder = ({ onTranscript }: VoiceRecorderProps) => {
         <div className="space-y-3">
           <InlineAlert tone="danger" title="录音失败" message={error} />
           {error.includes('HTTPS') || error.includes('不支持') ? (
-            <InlineAlert 
-              tone="info" 
-              title="解决方案" 
-              message="• 使用 https:// 访问网站 • 或在本地环境(localhost)测试 • 或使用现代浏览器(Chrome/Firefox/Safari)" 
+            <InlineAlert
+              tone="info"
+              title="解决方案"
+              message="• 使用 https:// 访问网站 • 或在本地环境(localhost)测试 • 或使用现代浏览器(Chrome/Firefox/Safari)"
             />
           ) : error.includes('权限') ? (
-            <InlineAlert 
-              tone="info" 
-              title="解决方案" 
-              message="• 点击浏览器地址栏的麦克风图标 • 选择'允许'访问麦克风 • 刷新页面重试" 
+            <InlineAlert
+              tone="info"
+              title="解决方案"
+              message="• 点击浏览器地址栏的麦克风图标 • 选择'允许'访问麦克风 • 刷新页面重试"
             />
           ) : null}
         </div>
