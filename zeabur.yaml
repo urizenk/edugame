@@ -1,0 +1,19 @@
+name: edu-game
+services:
+  - name: backend
+    dockerfile: backend/Dockerfile
+    port: 4001
+    env:
+      - NODE_ENV=production
+      - PORT=4001
+      - CORS_ORIGIN=*
+      - BAIDU_API_KEY=xmEObbrYbzwfjX8Vn2ePiQXI
+      - BAIDU_SECRET_KEY=DVTjYEKvImNmOpNNND9GOlQ0BIvzutGJ
+      - BAIDU_DEV_PID=1537
+      - AUTH_SECRET=my-secret-key-2024
+
+  - name: frontend
+    dockerfile: frontend/Dockerfile
+    port: 80
+    env:
+      - VITE_API_URL=https://edu-game-backend.zeabur.app

@@ -1,44 +1,30 @@
-version: "3.3"
+version: "3.8"
 
 services:
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: edu-game-backend
-    restart: always
     ports:
       - "4001:4001"
     environment:
       - NODE_ENV=production
       - PORT=4001
       - CORS_ORIGIN=*
-      - BAIDU_API_KEY=${BAIDU_API_KEY}
-      - BAIDU_SECRET_KEY=${BAIDU_SECRET_KEY}
+      - BAIDU_API_KEY=xmEObbrYbzwfjX8Vn2ePiQXI
+      - BAIDU_SECRET_KEY=DVTjYEKvImNmOpNNND9GOlQ0BIvzutGJ
       - BAIDU_DEV_PID=1537
-      - AUTH_SECRET=${AUTH_SECRET:-my-secret-key-2024}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
-    volumes:
-      - backend-data:/app/data
-    networks:
-      - edu-game-network
+      - AUTH_SECRET=my-secret-key-2024
+    restart: always
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: edu-game-frontend
-    restart: always
     ports:
-      - "80:80"
+      - "8080:80"
+    environment:
+      - VITE_API_URL=http://backend:4001
     depends_on:
       - backend
-    networks:
-      - edu-game-network
-
-volumes:
-  backend-data:
-
-networks:
-  edu-game-network:
-    driver: bridge
+    restart: always
