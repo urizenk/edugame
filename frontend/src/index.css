@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Source Han Sans SC', 'Noto Sans SC', system-ui, sans-serif;
+  font-feature-settings: 'ss01' on;
+  color: #161c21;
+  background-color: #f0f6ff;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  body {
+    @apply min-h-screen bg-gradient-to-br from-playful-peach-50 via-playful-honey-50/40 to-playful-coral-50/30 text-ink-900;
+  }
+
+  a {
+    @apply font-medium text-brand-600 underline-offset-4 transition-colors duration-200 hover:text-brand-500;
+  }
+
+  button {
+    @apply font-medium;
+  }
+}
+
+@layer utilities {
+  /* 动画延迟工具类 */
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+  .animation-delay-6000 {
+    animation-delay: 6s;
+  }
+  .animation-delay-8000 {
+    animation-delay: 8s;
+  }
+
+  /* 气泡3D立体效果 */
+  .bubble-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  /* 气泡拖拽时的闪烁效果 */
+  .bubble-dragging {
+    animation: bubbleDragGlow 0.5s ease-in-out infinite alternate;
+  }
+  
+  @keyframes bubbleDragGlow {
+    from {
+      filter: brightness(1) drop-shadow(0 0 5px currentColor);
+    }
+    to {
+      filter: brightness(1.3) drop-shadow(0 0 15px currentColor);
+    }
+  }
+  
+  /* 气泡悬停时的呼吸光环 */
+  .bubble-hover-glow {
+    position: relative;
+  }
+  
+  .bubble-hover-glow::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    background: inherit;
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  .bubble-hover-glow:hover::before {
+    opacity: 0.6;
+    animation: breathe 2s ease-in-out infinite;
+  }
+  
+  @keyframes breathe {
+    0%, 100% {
+      transform: scale(0.95);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.7;
+    }
+  }
+  
+  /* 温暖流动边框效果 */
+  .rainbow-border-animate {
+    position: relative;
+    background: linear-gradient(90deg, 
+      #ff6b9d 0%,    /* peach */
+      #ff8c5a 14%,   /* coral */
+      #ffca4a 28%,   /* honey */
+      #36f799 42%,   /* mint */
+      #b588ff 57%,   /* lavender */
+      #ff8fb3 71%,   /* light peach */
+      #ff6b9d 85%,   /* peach */
+      #ff8c5a 100%   /* coral */
+    );
+    background-size: 200% 100%;
+    animation: rainbowShift 3s linear infinite;
+  }
+  
+  @keyframes rainbowShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+  
+  /* 气泡点击波纹效果 */
+  .bubble-ripple {
+    position: relative;
+    overflow: visible;
+  }
+  
+  .bubble-ripple::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 2px solid currentColor;
+    opacity: 0;
+    animation: ripple 0.6s ease-out;
+  }
+  
+  @keyframes ripple {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+  
+  /* 平滑滚动 */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  
+  /* 选中文本的样式 */
+  ::selection {
+    background-color: rgba(255, 107, 157, 0.3); /* peach-500 */
+    color: inherit;
+  }
+}
