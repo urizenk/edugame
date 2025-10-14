@@ -11,7 +11,9 @@ RUN npm ci
 # 复制源代码
 COPY . .
 
-# 构建应用
+# 设置环境变量并构建应用
+ENV VITE_API_BASE_URL=/api
+ENV VITE_SOCKET_URL=/socket.io
 RUN npm run build
 
 # 生产环境使用 nginx
