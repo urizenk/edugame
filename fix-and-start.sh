@@ -76,12 +76,16 @@ export default {
 }
 EOF
 
+# 安装前端依赖
+echo "安装前端依赖..."
+npm install
+
 # 构建前端项目
 echo "构建前端项目..."
 if vite build; then
     echo -e "✅ 前端构建成功"
 else
-    echo -e "${YELLOW}⚠️  构建失败，尝试直接启动预览${NC}"
+    echo -e "${YELLOW}⚠️  构建失败，跳过构建直接启动预览${NC}"
 fi
 
 # 启动前端预览服务
