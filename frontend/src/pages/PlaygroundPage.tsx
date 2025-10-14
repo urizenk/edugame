@@ -110,47 +110,53 @@ const PlaygroundPage = () => {
         <div className="absolute top-1/3 left-1/2 w-80 h-80 bg-playful-mint-300/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-8000" />
       </div>
 
-      {/* 简化的顶部标题栏 */}
-      <header className="relative overflow-hidden bg-white/80 backdrop-blur-xl px-6 py-8 shadow-sm border-b border-playful-peach-200/30">
-        {/* 装饰性表情符号 */}
+      {/* 顶部标题栏 - 海洋蓝色系，增大尺寸 */}
+      <header className="relative overflow-hidden bg-gradient-to-r from-sky-100/90 to-blue-100/90 backdrop-blur-xl px-8 py-10 shadow-lg border-b border-sky-300/40">
+        {/* 装饰性海洋表情符号 */}
+        <div className="absolute left-8 top-3 text-5xl animate-bounce-gentle" aria-hidden="true">🐠</div>
+        <div className="absolute right-20 top-4 text-4xl animate-float" aria-hidden="true">🌊</div>
 
-        {/* 装饰性表情符号 */}
-        <div className="absolute left-6 top-2 text-4xl animate-bounce-gentle" aria-hidden="true">🎠</div>
-        <div className="absolute right-16 top-3 text-3xl animate-float" aria-hidden="true">🎨</div>
-
-        <div className="relative mx-auto flex max-w-7xl items-center justify-between">
+        <div className="relative mx-auto flex max-w-[1800px] items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-playful-peach-700 md:text-3xl">
+            <h1 className="text-3xl font-bold text-sky-700 md:text-4xl tracking-wide">
               快乐课堂 · 语音创想
             </h1>
+            <p className="text-lg text-blue-600 mt-2 font-medium">海洋主题教学互动平台</p>
           </div>
-          <div className="flex gap-4 text-sm">
-            <span className="flex items-center gap-2 rounded-full bg-playful-honey-100 px-4 py-2 shadow-sm border border-playful-honey-300/40">
-              🌟 <strong className="text-playful-coral-700">{stats.classCount}</strong>
+          <div className="flex gap-6 text-base">
+            <span className="flex items-center gap-3 rounded-full bg-cyan-100 px-6 py-3 shadow-md border border-cyan-300/50">
+              🐚 <strong className="text-cyan-700 text-lg">{stats.classCount}</strong>
+              <span className="text-cyan-600 text-sm">个想法</span>
             </span>
-            <span className="flex items-center gap-2 rounded-full bg-playful-lavender-100 px-4 py-2 shadow-sm border border-playful-lavender-300/40">
-              🪄 <strong className="text-playful-lavender-700">{stats.sortingCount}</strong>
+            <span className="flex items-center gap-3 rounded-full bg-blue-100 px-6 py-3 shadow-md border border-blue-300/50">
+              🦑 <strong className="text-blue-700 text-lg">{stats.sortingCount}</strong>
+              <span className="text-blue-600 text-sm">已排序</span>
             </span>
           </div>
         </div>
       </header>
 
-      {/* 主要内容区：两个池子水平平齐 */}
-      <main className="flex-1 mx-auto w-full max-w-7xl px-6 py-8 md:px-12">
-        <div className="flex flex-col md:flex-row gap-8 h-full">
-          {/* 左侧：集趣池 */}
-          <section className="flex-1 rounded-3xl bg-white/95 border-4 border-playful-peach-200/50 p-8 shadow-xl backdrop-blur-xl flex flex-col">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <span className="text-3xl animate-bounce-gentle" aria-hidden="true">🫧</span>
-              <h2 className="text-2xl font-bold text-playful-peach-700">集趣池</h2>
-              <span className="text-3xl animate-bounce-gentle" aria-hidden="true">✨</span>
+      {/* 主要内容区：两个池子水平平齐 - 针对希沃教学一体机优化 */}
+      <main className="flex-1 mx-auto w-full max-w-[1800px] px-8 py-12 md:px-16">
+        <div className="flex flex-col lg:flex-row gap-12 h-full min-h-[700px]">
+          {/* 左侧：集趣池 - 海洋蓝色系，增大尺寸 */}
+          <section className="flex-1 rounded-[2rem] bg-gradient-to-br from-sky-50/95 to-blue-50/95 border-4 border-sky-300/60 p-12 shadow-2xl backdrop-blur-xl flex flex-col min-h-[650px]">
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <span className="text-5xl animate-bounce-gentle" aria-hidden="true">🌊</span>
+              <h2 className="text-4xl font-bold text-sky-700 tracking-wide">集趣池</h2>
+              <span className="text-5xl animate-bounce-gentle" aria-hidden="true">🐚</span>
             </div>
 
-            <div className="flex-1 flex min-h-[400px] flex-wrap content-start gap-3 rounded-3xl border-2 border-dashed border-playful-honey-300/40 bg-playful-honey-50/30 p-5 overflow-y-auto">
+            <div className="flex-1 flex min-h-[500px] flex-wrap content-start gap-4 rounded-[2rem] border-3 border-dashed border-cyan-400/50 bg-gradient-to-br from-cyan-50/40 to-sky-100/40 p-8 overflow-y-auto shadow-inner">
               {classBubbles.length === 0 ? (
-                <div className="flex w-full flex-col items-center justify-center gap-3 text-sm text-ink-500">
-                  <span className="text-5xl animate-bounce-gentle" aria-hidden="true">🎤</span>
-                  <span className="font-medium">等待孩子们的第一句灵感~</span>
+                <div className="flex w-full flex-col items-center justify-center gap-6 text-lg text-slate-600">
+                  <span className="text-8xl animate-bounce-gentle" aria-hidden="true">🎤</span>
+                  <span className="font-semibold text-xl">等待孩子们的第一句灵感~</span>
+                  <div className="flex gap-3 text-6xl animate-pulse">
+                    <span>🐠</span>
+                    <span>🐙</span>
+                    <span>🦑</span>
+                  </div>
                 </div>
               ) : (
                 classBubbles.map((bubble, index) => {
@@ -163,7 +169,7 @@ const PlaygroundPage = () => {
                   return (
                     <div
                       key={bubble.id}
-                      className={`group relative flex cursor-pointer select-none items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:rotate-2 hover:z-10 active:scale-95 animate-bubble-bounce-in bubble-hover-glow ${floatAnimation} ${draggingId === bubble.id ? 'opacity-50 scale-90 cursor-grabbing bubble-dragging' : 'cursor-grab'
+                      className={`group relative flex cursor-pointer select-none items-center gap-3 rounded-full px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:rotate-2 hover:z-10 active:scale-95 animate-bubble-bounce-in bubble-hover-glow ${floatAnimation} ${draggingId === bubble.id ? 'opacity-50 scale-90 cursor-grabbing bubble-dragging' : 'cursor-grab'
                         }`}
                       style={{
                         backgroundColor: bubble.color,
@@ -188,10 +194,10 @@ const PlaygroundPage = () => {
                         aria-hidden="true"
                       />
 
-                      {/* 删除按钮 */}
+                      {/* 删除按钮 - 增大尺寸 */}
                       <button
                         type="button"
-                        className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 hover:scale-110 z-20"
+                        className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-red-500 text-white text-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 hover:scale-110 z-20 shadow-lg"
                         onClick={(e) => {
                           e.stopPropagation();
                           removeBubble(bubble.id);
@@ -200,11 +206,11 @@ const PlaygroundPage = () => {
                         ×
                       </button>
 
-                      <span className="text-base animate-bounce-gentle" aria-hidden="true" style={{ animationDelay: `${(index % 3) * 0.3}s` }}>
+                      <span className="text-2xl animate-bounce-gentle" aria-hidden="true" style={{ animationDelay: `${(index % 3) * 0.3}s` }}>
                         {pickShape(index)}
                       </span>
-                      <span className="relative z-10">{bubble.text}</span>
-                      <span className="ml-1 rounded-full bg-white/40 px-2.5 py-0.5 text-[11px] font-semibold text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:bg-white/60">
+                      <span className="relative z-10 text-lg">{bubble.text}</span>
+                      <span className="ml-2 rounded-full bg-white/40 px-4 py-1.5 text-sm font-semibold text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:bg-white/60">
                         加入排序区
                       </span>
                     </div>
@@ -214,11 +220,11 @@ const PlaygroundPage = () => {
             </div>
           </section>
 
-          {/* 右侧：排序舞台 */}
+          {/* 右侧：排序舞台 - 海洋蓝色系，增大尺寸 */}
           <section
-            className={`flex-1 rounded-3xl border-4 transition-all duration-300 p-8 backdrop-blur-xl flex flex-col ${draggingId
-              ? 'border-playful-mint-400 bg-playful-mint-50/30 shadow-xl scale-[1.02]'
-              : 'border-playful-lavender-200/50 bg-white/95 shadow-lg'
+            className={`flex-1 rounded-[2rem] border-4 transition-all duration-300 p-12 backdrop-blur-xl flex flex-col min-h-[650px] ${draggingId
+              ? 'border-teal-400 bg-gradient-to-br from-teal-50/40 to-cyan-50/40 shadow-2xl scale-[1.02]'
+              : 'border-blue-300/60 bg-gradient-to-br from-blue-50/95 to-indigo-50/95 shadow-xl'
               }`}
             onDragOver={(event) => {
               event.preventDefault();
@@ -232,28 +238,33 @@ const PlaygroundPage = () => {
               }
             }}
           >
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <span className="text-3xl animate-float" aria-hidden="true">🎪</span>
-              <h2 className="text-2xl font-bold text-playful-lavender-700">排序舞台</h2>
-              <span className="text-3xl animate-float" aria-hidden="true">🎯</span>
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <span className="text-5xl animate-float" aria-hidden="true">🏖️</span>
+              <h2 className="text-4xl font-bold text-blue-700 tracking-wide">排序舞台</h2>
+              <span className="text-5xl animate-float" aria-hidden="true">🌊</span>
             </div>
 
-            <div className="flex-1 space-y-3 overflow-y-auto">
+            <div className="flex-1 space-y-4 overflow-y-auto">
               {sortingBubbles.length === 0 ? (
-                <div className="flex min-h-[400px] flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-playful-lavender-300/40 bg-playful-lavender-50/20 text-sm text-ink-500">
-                  <span className="text-5xl animate-bounce-gentle" aria-hidden="true">🧠</span>
-                  <span className="font-medium text-center px-4">拖拽气泡到这里开始排序!</span>
+                <div className="flex min-h-[500px] flex-col items-center justify-center gap-6 rounded-[2rem] border-3 border-dashed border-blue-400/50 bg-gradient-to-br from-blue-50/30 to-indigo-50/30 text-lg text-slate-600 shadow-inner">
+                  <span className="text-8xl animate-bounce-gentle" aria-hidden="true">🧠</span>
+                  <span className="font-semibold text-xl text-center px-6">拖拽气泡到这里开始排序!</span>
+                  <div className="flex gap-3 text-6xl animate-pulse">
+                    <span>🐋</span>
+                    <span>🦈</span>
+                    <span>🐬</span>
+                  </div>
                 </div>
               ) : (
                 sortingBubbles.map((bubble, index) => (
                   <div
                     key={bubble.id}
-                    className="flex items-center justify-between gap-3 rounded-2xl border-2 border-playful-lavender-200 bg-white px-5 py-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-[1.02] animate-bubble-pop-in hover:border-playful-lavender-400"
+                    className="flex items-center justify-between gap-4 rounded-2xl border-3 border-blue-200/60 bg-gradient-to-r from-white to-blue-50/50 px-8 py-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] animate-bubble-pop-in hover:border-blue-400/80"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-4">
                       <span
-                        className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-full text-lg font-bold shadow-lg relative overflow-hidden animate-bubble-pulse"
+                        className="mt-1 flex h-14 w-14 items-center justify-center rounded-full text-2xl font-bold shadow-xl relative overflow-hidden animate-bubble-pulse"
                         style={{
                           backgroundColor: bubble.color,
                           color: '#fff',
@@ -267,17 +278,17 @@ const PlaygroundPage = () => {
                         <span className="relative z-10">{index + 1}</span>
                       </span>
                       <div className="flex-1">
-                        <p className="font-bold text-ink-800 text-base">{bubble.text}</p>
-                        <p className="text-xs text-ink-500 mt-0.5 flex items-center gap-1">
+                        <p className="font-bold text-slate-800 text-xl leading-relaxed">{bubble.text}</p>
+                        <p className="text-sm text-slate-500 mt-1 flex items-center gap-2">
                           <span className="animate-pulse">⏰</span>
                           {new Date(bubble.createdAt).toLocaleTimeString()}
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <button
                         type="button"
-                        className="rounded-full bg-playful-mint-100 px-3 py-2 text-xs font-bold text-playful-mint-700 shadow-sm transition-all duration-200 hover:bg-playful-mint-200 hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        className="rounded-full bg-teal-100 px-4 py-3 text-sm font-bold text-teal-700 shadow-md transition-all duration-200 hover:bg-teal-200 hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                         onClick={() => moveBubble(bubble.id, "up")}
                         disabled={index === 0}
                       >
@@ -285,7 +296,7 @@ const PlaygroundPage = () => {
                       </button>
                       <button
                         type="button"
-                        className="rounded-full bg-playful-honey-100 px-3 py-2 text-xs font-bold text-playful-honey-700 shadow-sm transition-all duration-200 hover:bg-playful-honey-200 hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                        className="rounded-full bg-cyan-100 px-4 py-3 text-sm font-bold text-cyan-700 shadow-md transition-all duration-200 hover:bg-cyan-200 hover:scale-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                         onClick={() => moveBubble(bubble.id, "down")}
                         disabled={index === sortingBubbles.length - 1}
                       >
@@ -293,7 +304,7 @@ const PlaygroundPage = () => {
                       </button>
                       <button
                         type="button"
-                        className="rounded-full bg-playful-coral-100 px-3 py-2 text-xs font-bold text-playful-coral-700 shadow-sm transition-all duration-200 hover:bg-playful-coral-200 hover:scale-110 active:scale-95"
+                        className="rounded-full bg-red-100 px-4 py-3 text-sm font-bold text-red-700 shadow-md transition-all duration-200 hover:bg-red-200 hover:scale-110 active:scale-95"
                         onClick={() => removeFromSorting(bubble.id)}
                       >
                         ❌
@@ -307,17 +318,17 @@ const PlaygroundPage = () => {
         </div>
       </main>
 
-      {/* 底部：输入区域 */}
-      <footer className="border-t border-playful-peach-200/30 bg-white/90 backdrop-blur-xl px-6 py-6 shadow-lg">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6">
+      {/* 底部：输入区域 - 海洋蓝色系，增大尺寸 */}
+      <footer className="border-t border-sky-300/40 bg-gradient-to-r from-sky-50/95 to-blue-50/95 backdrop-blur-xl px-8 py-8 shadow-xl">
+        <div className="mx-auto max-w-[1800px]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
             {/* 语音输入 */}
             <div className="flex-1">
               <VoiceRecorder onTranscript={handleTranscript} />
             </div>
 
             {/* 文字输入 */}
-            <div className="flex-1 flex gap-3">
+            <div className="flex-1 flex gap-4">
               <input
                 type="text"
                 value={textInput}
@@ -328,16 +339,16 @@ const PlaygroundPage = () => {
                   }
                 }}
                 placeholder="也可以直接输入文字创建气泡..."
-                className="flex-1 rounded-2xl border-2 border-playful-lavender-300/40 bg-white px-5 py-4 text-base font-medium text-ink-900 placeholder-ink-400 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-playful-lavender-300/50 focus:border-playful-lavender-400"
+                className="flex-1 rounded-2xl border-3 border-blue-300/50 bg-white px-6 py-5 text-lg font-medium text-slate-900 placeholder-slate-400 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-500"
               />
               <button
                 type="button"
                 onClick={handleTextSubmit}
                 disabled={!textInput.trim()}
-                className="rounded-2xl bg-playful-lavender-500 px-8 py-4 text-base font-bold text-white shadow-md transition-all duration-200 hover:bg-playful-lavender-400 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="rounded-2xl bg-blue-500 px-10 py-5 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:bg-blue-400 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                <span className="flex items-center gap-2">
-                  <span>✨</span>
+                <span className="flex items-center gap-3">
+                  <span className="text-xl">🌊</span>
                   <span>创建</span>
                 </span>
               </button>
