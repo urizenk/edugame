@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "4001:4001"
+    environment:
+      - NODE_ENV=production
+      - PORT=4001
+      - CORS_ORIGIN=*
+      - BAIDU_API_KEY=xmEObbrYbzwfjX8Vn2ePiQXI
+      - BAIDU_SECRET_KEY=DVTjYEKvImNmOpNNND9GOlQ0BIvzutGJ
+      - BAIDU_DEV_PID=1537
+      - AUTH_SECRET=my-secret-key-2024
+    restart: unless-stopped
+    networks:
+      - edu-game
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4173:4173"
+    environment:
+      - VITE_API_BASE_URL=https://localhost:4001
+    restart: unless-stopped
+    networks:
+      - edu-game
+
+  nginx-https:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx-https.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+    networks:
+      - edu-game
+
+networks:
+  edu-game:
+    driver: bridge
