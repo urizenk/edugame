@@ -1,5 +1,4 @@
 ﻿import { useMemo, useState } from "react";
-import VoiceRecorder from "../components/input/VoiceRecorder";
 
 interface BubbleItem {
   id: string;
@@ -49,11 +48,6 @@ const PlaygroundPage = () => {
     };
   };
 
-  const handleTranscript = (text: string) => {
-    if (!text.trim()) return;
-    const newBubble = createBubble(text.trim());
-    setClassBubbles((prev) => [newBubble, ...prev]);
-  };
 
   const addToSorting = (bubbleId: string) => {
     setSortingBubbles((prev) => {
@@ -119,7 +113,7 @@ const PlaygroundPage = () => {
         <div className="relative mx-auto flex max-w-[1800px] items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-sky-700 md:text-4xl tracking-wide">
-              快乐课堂 · 语音创想
+              快乐课堂 · 文字创想
             </h1>
             <p className="text-lg text-blue-600 mt-2 font-medium">海洋主题教学互动平台</p>
           </div>
@@ -321,38 +315,31 @@ const PlaygroundPage = () => {
       {/* 底部：输入区域 - 海洋蓝色系，增大尺寸 */}
       <footer className="border-t border-sky-300/40 bg-gradient-to-r from-sky-50/95 to-blue-50/95 backdrop-blur-xl px-8 py-8 shadow-xl">
         <div className="mx-auto max-w-[1800px]">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
-            {/* 语音输入 */}
-            <div className="flex-1">
-              <VoiceRecorder onTranscript={handleTranscript} />
-            </div>
-
-            {/* 文字输入 */}
-            <div className="flex-1 flex gap-4">
-              <input
-                type="text"
-                value={textInput}
-                onChange={(e) => setTextInput(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    handleTextSubmit();
-                  }
-                }}
-                placeholder="也可以直接输入文字创建气泡..."
-                className="flex-1 rounded-2xl border-3 border-blue-300/50 bg-white px-6 py-5 text-lg font-medium text-slate-900 placeholder-slate-400 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-500"
-              />
-              <button
-                type="button"
-                onClick={handleTextSubmit}
-                disabled={!textInput.trim()}
-                className="rounded-2xl bg-blue-500 px-10 py-5 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:bg-blue-400 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">🌊</span>
-                  <span>创建</span>
-                </span>
-              </button>
-            </div>
+          {/* 文字输入 */}
+          <div className="flex gap-4 items-center">
+            <input
+              type="text"
+              value={textInput}
+              onChange={(e) => setTextInput(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleTextSubmit();
+                }
+              }}
+              placeholder="✨ 输入你的想法，按回车或点击创建按钮..."
+              className="flex-1 rounded-2xl border-3 border-blue-300/50 bg-white px-8 py-6 text-xl font-medium text-slate-900 placeholder-slate-400 shadow-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-400/50 focus:border-blue-500"
+            />
+            <button
+              type="button"
+              onClick={handleTextSubmit}
+              disabled={!textInput.trim()}
+              className="rounded-2xl bg-blue-500 px-12 py-6 text-xl font-bold text-white shadow-lg transition-all duration-200 hover:bg-blue-400 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            >
+              <span className="flex items-center gap-3">
+                <span className="text-2xl">🌊</span>
+                <span>创建气泡</span>
+              </span>
+            </button>
           </div>
         </div>
       </footer>
