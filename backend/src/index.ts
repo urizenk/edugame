@@ -5,6 +5,7 @@ import { Server } from 'socket.io';
 import env from './config/env';
 import authRouter from './routes/auth';
 import speechRouter from './routes/speech';
+import testRouter from './routes/test';
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.get('/health', (_req, res) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/speech', speechRouter);
+app.use('/api/test', testRouter);
 
 const httpServer = createServer(app);
 
