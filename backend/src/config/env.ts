@@ -9,7 +9,7 @@ const parsePort = (value: string | undefined, fallback: number): number => {
 };
 
 const env = {
-  port: parsePort(process.env.PORT, 4000),
+  port: parsePort(process.env.PORT, 4001),
   corsOrigin: process.env.CORS_ORIGIN ?? '*',
   baiduApiKey: process.env.BAIDU_API_KEY ?? '',
   baiduSecretKey: process.env.BAIDU_SECRET_KEY ?? '',
