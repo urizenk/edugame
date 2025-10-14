@@ -20,8 +20,8 @@ const getApiBaseUrl = () => {
       // Zeabur 环境，使用后端服务域名
       return `https://${currentHost.replace('frontend', 'backend').replace(/^[^.]+/, 'backend')}`;
     }
-    // 其他生产环境，使用当前域名的 4001 端口
-    return `${window.location.protocol}//${window.location.hostname}:4001`;
+    // 其他生产环境，使用当前域名（通过Nginx代理）
+    return `${window.location.protocol}//${window.location.host}`;
   }
 
   // 开发环境默认
