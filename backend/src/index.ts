@@ -6,6 +6,7 @@ import env from './config/env';
 import authRouter from './routes/auth';
 import speechRouter from './routes/speech';
 import testRouter from './routes/test';
+import bubblesRouter from './routes/bubbles';
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.get('/health', (_req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/speech', speechRouter);
 app.use('/api/test', testRouter);
+app.use('/api/bubbles', bubblesRouter);
 
 const httpServer = createServer(app);
 
@@ -49,6 +51,25 @@ const io = new Server(httpServer, {
 
 io.on('connection', (socket) => {
   console.log(`Socket connected: ${socket.id}`);
+
+  // 新客户端连接时，发送当前数据
+  const { bubbleData } = require('./routes/bubbles');
+  socket.emit('bubbles:sync', bubbleData);
+
+  // 监听客户端的数据更新
+  socket.on('bubbles:update', (data) => {
+    console.log(`Received bubbles update from ${socket.id}`);
+    const { updateBubbleData } = require('./routes/bubbles');
+    
+    // 更新服务器数据
+    const updated = updateBubbleData(data);
+    
+    // 广播给所有其他客户端
+    socket.broadcast.emit('bubbles:sync', updated);
+    
+    // 确认给发送者
+    socket.emit('bubbles:updated', { success: true });
+  });
 
   socket.on('disconnect', (reason) => {
     console.log(`Socket disconnected: ${socket.id} (${reason})`);
